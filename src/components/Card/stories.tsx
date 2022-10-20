@@ -1,10 +1,13 @@
 import {
   Grid, Paper, Text, Container,
-  Button, TextInput, Group, Box, Checkbox, Title,
+  Button, TextInput, Group, Box, Checkbox, Title, SimpleGrid, Space, Tabs, Accordion, Burger, HoverCard, Modal, Kbd,
 } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
+import { IconMessageCircle, IconPhoto, IconSettings } from '@tabler/icons';
+import { useState } from 'react';
 import { z } from 'zod';
 
+import { showNotification } from '@mantine/notifications';
 import Card from '.';
 
 export const Basic = () => {
@@ -145,6 +148,233 @@ export const FormTest = () => {
   );
 };
 
+export const SuperSimpleGrid = () => {
+  const cells = Array.from(Array(5).keys());
+
+  return (
+    <Container>
+      <SimpleGrid
+        spacing="xl"
+        breakpoints={[
+          { minWidth: 'lg', cols: 3 },
+          { minWidth: 'md', cols: 2 },
+        ]}
+      >
+        {
+          cells.map((item) => {
+            return (
+              <Box
+                key={`box-${item}`}
+                sx={{ padding: '20px', background: '#A7C0DC' }}
+              >
+                <div>
+                  {item}
+                </div>
+              </Box>
+            );
+          })
+        }
+      </SimpleGrid>
+    </Container>
+  );
+};
+
+export const TrySpace = () => {
+  return (
+    <Group>
+      <Button
+        color="red"
+        fullWidth
+        mb={20}
+      >
+        Red Button
+      </Button>
+      <Button
+        color="green"
+      >
+        Green Button
+      </Button>
+    </Group>
+  );
+};
+
+export const DemoBurger = () => {
+  const [opened, setOpened] = useState(false);
+  const title = opened ? 'Close Navigation' : 'Open Navigation';
+
+  return (
+    <Group>
+      <Burger
+        opened={opened}
+        title={title}
+        onClick={() => setOpened(!opened)}
+      />
+      <Burger
+        size="lg"
+        color="red"
+        opened={opened}
+        title={title}
+        onClick={() => setOpened(!opened)}
+      />
+      <Burger
+        size="xl"
+        color="green"
+        opened={opened}
+        title={title}
+        onClick={() => setOpened(!opened)}
+      />
+    </Group>
+  );
+};
+
+export const CoolTabs = () => {
+  return (
+    <Tabs defaultValue="gallery">
+      <Tabs.List>
+        <Tabs.Tab
+          value="gallery"
+          icon={<IconPhoto size={14} />}
+        >Gallery
+        </Tabs.Tab>
+        <Tabs.Tab
+          value="messages"
+          icon={<IconMessageCircle size={14} />}
+        >Messages
+        </Tabs.Tab>
+        <Tabs.Tab
+          value="settings"
+          icon={<IconSettings size={14} />}
+        >Settings
+        </Tabs.Tab>
+      </Tabs.List>
+
+      <Tabs.Panel
+        value="gallery"
+        pt="xs"
+      >
+        <Accordion defaultValue="customization">
+          <Accordion.Item value="customization">
+            <Accordion.Control>Customization</Accordion.Control>
+            <Accordion.Panel>Colors, fonts, shadows and many other parts are customizable to fit your design needs</Accordion.Panel>
+          </Accordion.Item>
+
+          <Accordion.Item value="flexibility">
+            <Accordion.Control>Flexibility</Accordion.Control>
+            <Accordion.Panel>Configure components appearance and behavior with vast amount of settings or overwrite any part of component styles</Accordion.Panel>
+          </Accordion.Item>
+
+          <Accordion.Item value="focus-ring">
+            <Accordion.Control>No annoying focus ring</Accordion.Control>
+            <Accordion.Panel>With new :focus-visible pseudo-class focus ring appears only when user navigates with keyboard</Accordion.Panel>
+          </Accordion.Item>
+        </Accordion>
+      </Tabs.Panel>
+
+      <Tabs.Panel
+        value="messages"
+        pt="xs"
+      >
+        <DemoBurger />
+      </Tabs.Panel>
+
+      <Tabs.Panel
+        value="settings"
+        pt="xs"
+      >
+        <Group position="center">
+          <HoverCard
+            position="bottom-end"
+            width={350}
+            shadow="md"
+          >
+            <HoverCard.Target>
+              <Button>Hover to reveal the card</Button>
+            </HoverCard.Target>
+            <HoverCard.Dropdown>
+              <Accordion defaultValue="customization">
+                <Accordion.Item value="customization">
+                  <Accordion.Control>Customization</Accordion.Control>
+                  <Accordion.Panel>Colors, fonts, shadows and many other parts are customizable to fit your design needs</Accordion.Panel>
+                </Accordion.Item>
+
+                <Accordion.Item value="flexibility">
+                  <Accordion.Control>Flexibility</Accordion.Control>
+                  <Accordion.Panel>Configure components appearance and behavior with vast amount of settings or overwrite any part of component styles</Accordion.Panel>
+                </Accordion.Item>
+
+                <Accordion.Item value="focus-ring">
+
+                  <HoverCard position="bottom">
+                    <HoverCard.Target>
+                      <Button>Hover to reveal the card</Button>
+                    </HoverCard.Target>
+
+                    <HoverCard.Dropdown>
+                      <Paper>
+                        <p>Lorem </p>
+                      </Paper>
+                    </HoverCard.Dropdown>
+
+                  </HoverCard>
+
+                </Accordion.Item>
+              </Accordion>
+            </HoverCard.Dropdown>
+          </HoverCard>
+        </Group>
+      </Tabs.Panel>
+    </Tabs>
+  );
+};
+
+export const TryModal = () => {
+  const [opened, setOpened] = useState(false);
+
+  return (
+    <>
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Introduce yourself!"
+        styles={{
+          title: {
+            fontSize: 30,
+            fontWeight: 600,
+          },
+          close: {
+            color: 'red',
+            borderRadius: '50%',
+            '&:hover': {
+              backgroundColor: '#1E1E1E',
+            },
+          },
+        }}
+      >
+        <>
+          <Kbd>⌘</Kbd> + <Kbd>shift</Kbd> + <Kbd>M</Kbd>
+          <Space h={20} />
+          <Kbd>Ctrl</Kbd> + <Kbd>C</Kbd> + <Kbd>M</Kbd>
+        </>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut dolor placeat ullam similique nobis itaque impedit asperiores deserunt laboriosam perspiciatis.</p>
+
+        <Button
+          variant="outline"
+          onClick={() => showNotification({
+            title: 'Default notification',
+            message: 'Hey there, your code is awesome! 🤥',
+          })}
+        >
+          Notify Me
+        </Button>
+
+      </Modal>
+
+      <Group position="center">
+        <Button onClick={() => setOpened(true)}>Open Modal</Button>
+      </Group>
+    </>
+  );
+};
 export default {
   title: 'Card',
 };
