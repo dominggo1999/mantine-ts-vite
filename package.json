@@ -1,5 +1,5 @@
 {
-  "name": "mantine",
+  "name": "mantine-ts-vite",
   "private": true,
   "version": "0.0.0",
   "type": "module",
