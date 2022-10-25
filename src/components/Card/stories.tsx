@@ -37,11 +37,8 @@ export const JustTesting = () => {
                 key={`cell-${item}`}
               >
                 <Paper
-                  shadow="lg"
+                  shadow="xl"
                   p="xl"
-                  sx={{
-                    backgroundColor: '#deeaf1',
-                  }}
                 >
                   <Text
                     size="lg"
@@ -163,14 +160,14 @@ export const SuperSimpleGrid = () => {
         {
           cells.map((item) => {
             return (
-              <Box
+              <Paper
                 key={`box-${item}`}
-                sx={{ padding: '20px', background: '#A7C0DC' }}
+                sx={{ padding: '20px' }}
               >
                 <div>
                   {item}
                 </div>
-              </Box>
+              </Paper>
             );
           })
         }

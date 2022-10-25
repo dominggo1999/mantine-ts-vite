@@ -4,11 +4,12 @@ import { NotificationsProvider } from '@mantine/notifications';
 
 export const Provider: GlobalProvider = ({ children, globalState }) => {
   return (
-
     <MantineProvider
       withGlobalStyles
       withNormalizeCSS
-      theme={{ colorScheme: globalState.theme as 'dark' | 'light' }}
+      theme={{
+        colorScheme: globalState.theme as 'dark' | 'light',
+      }}
     >
       <NotificationsProvider>
         {children}
